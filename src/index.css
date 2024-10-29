@@ -60,19 +60,50 @@ body {
   height: 80%;
 }
 
-.productListPadding{
+.rightSideOfPage{
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   width: 100%;
   margin-left: 13%;
   margin-right: -8%;
 }
 
-.productList{
+.layOutChange{
+  display: flex;
+  background: grey;
+  width: 20%;
+  margin-left: 20rem;
+  padding: 0.8rem;
+  border-radius: 0.6rem;
+  margin: 2%;
+}
+
+.layOutButton{
+  width: 12rem;
+  padding: 0.3rem;
+  margin: 0.2rem;
+  background-color: #6CB4EE;
+}
+
+.productListPadding{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+}
+
+.productList3{
   display: grid;
   grid-template-columns: auto auto auto;
   width: 70%;
+}
+
+.productList5{
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  width: 80%;
 }
 
 .productBox{
@@ -81,11 +112,18 @@ body {
   align-items: center;
   background: grey;
   border-radius: 2%;
-  margin: 5%;
+  margin: 1.5rem;
   padding: 2%;
   line-height: 1.4rem;
-  width: 70%;
-  height: 90%;
+  width: 14rem;
+  height: 27rem;
+  overflow: hidden;
+}
+
+.imagee{
+  height: auto; 
+  max-width: 100%;
+  
 }
 
 .addCartButtonFlex{

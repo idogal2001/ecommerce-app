@@ -1,6 +1,7 @@
 import { ProductsDataBackUp } from './ProductsDataBackUp';
 import { Link } from 'react-router-dom';
-import React from 'react';
+import React, {useContext} from 'react';
+import {amountContext, layoutContext} from '../Pages/HomePage'
 
 interface ProductProps {
     category: string,
@@ -13,7 +14,6 @@ interface ProductProps {
 };
 
 interface ProductFilter {
-    setAmount: any;
     categoryFilter: string[];
     maxPriceRange: number;
     minPriceRange: number;
@@ -24,7 +24,23 @@ interface ProductFilter {
     search: string | undefined;
 }
 
-const Product = ({setAmount, categoryFilter ,maxPriceRange ,minPriceRange, priceSortLow, priceSortHigh, dateSortOld, dateSortNew, search}: ProductFilter) => {
+const Product = ({categoryFilter ,maxPriceRange ,minPriceRange, priceSortLow, priceSortHigh, dateSortOld, dateSortNew, search}: ProductFilter) => {
+
+    const amountData = useContext(amountContext);
+    const layoutData = useContext(layoutContext);
+
+    if (!layoutData) {
+        throw new Error('layoutContext is not provided');
+    }
+
+    const [layout, setLayout] = layoutData;
+
+
+    if (!amountData) {
+      throw new Error('amountContext is not provided');
+    }
+    
+    const [amount, setAmount] = amountData;
 
     let newProductList: ProductProps[];
 
@@ -89,19 +105,19 @@ const Product = ({setAmount, categoryFilter ,maxPriceRange ,minPriceRange, price
             localStorage.setItem(id.toString(), JSON.stringify(updatedProduct));
             }
         }
-        const amount: string | null = localStorage.getItem("amountOfItems");
-        if(amount){
-            localStorage.setItem("amountOfItems", (Number(amount) + 1).toString())
-            setAmount(amount + 1);
-        }
-        else{
+        const amountOfItem: string | null = localStorage.getItem("amountOfItems");
+        if (amountOfItem) {
+            const newAmount = Number(amountOfItem) + 1;
+            localStorage.setItem("amountOfItems", newAmount.toString());
+            setAmount({ number: newAmount });  
+        } else {
             localStorage.setItem("amountOfItems", "1");
-            setAmount(1);
-        }
+            setAmount({ number: 1 });  
     }
+}
 
         return(
-            <div className="productList">
+            <div className={layout.layout ? "productList5" : "productList3"}>
                 {
                     newProductList.map((product) => (
                     <div className="productBox" key={product.id}>

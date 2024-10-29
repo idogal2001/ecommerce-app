@@ -1,8 +1,9 @@
 import { ProductsDataBackUp } from '../components/ProductsDataBackUp';
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Navbar from '../components/Navbar';
 import React from 'react';
+import { amountContext } from './HomePage';
 
 interface Item {
     category: string,
@@ -19,6 +20,13 @@ interface Item {
 
 const CartList = () => {
 
+    const amountData = useContext(amountContext);
+
+    if (!amountData) {
+      throw new Error('amountContext is not provided');
+    }
+
+    const [amount, setAmount] = amountData;
     const  [items, setItems] = useState<Item[]>([]);
     const [priceOfList, setPriceOfList] = useState<number>(0);
     const [popUp, setPopUp] = useState<boolean>(false)
@@ -31,15 +39,10 @@ const CartList = () => {
                 loadItems.push(JSON.parse(storeItemInfo));
             }
         }
-        
-        // if(loadItems[0].priceTotalOfItem){
-        // let count: number = 0;
-        // for(let i = 0; i <= loadItems.length; i++){
-        //         count +=  loadItems[i].priceTotalOfItem;
-        //     }    
-        // setPriceOfList(count);
-        // }
-        
+            if(loadItems.length > 0){
+                const count: number = loadItems.reduce((acc, item) => acc = acc + item.priceTotalOfItem, 0); 
+                setPriceOfList(count);
+                }
         setItems(loadItems);
     }, [])
 
@@ -48,12 +51,18 @@ const CartList = () => {
             alert("If you need to buy more then 20 please come to the store in person! Sorry!")
         }
         else{
+            const amountOfItem: string | null = localStorage.getItem("amountOfItems");
+            if (amountOfItem) {
+                const newAmount = Number(amountOfItem) + 1;
+                localStorage.setItem("amountOfItems", newAmount.toString());
+                setAmount({ number: newAmount });  
+            }
             const updatedItems = items.map((item: Item) => {
                 if (item.id === id) {
                     const updatedProduct = { ...item, amount: number + 1, priceTotalOfItem: priceTotalOfItem + priceOfItem};
                     const savePrice: string | null  = localStorage.getItem("priceOfList");
                     localStorage.setItem("priceOfList", (priceOfItem  + Number(savePrice)).toString());
-                    setPriceOfList(priceOfItem + Number(savePrice));
+                    setPriceOfList(priceOfItem + priceOfList);
                     localStorage.setItem(id.toString(), JSON.stringify(updatedProduct)); 
                     return updatedProduct;
                 }
@@ -69,12 +78,18 @@ const CartList = () => {
             alert("You can't buy negative amount of items XD")
         }
         else{
+            const amountOfItem: string | null = localStorage.getItem("amountOfItems");
+            if (amountOfItem) {
+                const newAmount = Number(amountOfItem) + -1;
+                localStorage.setItem("amountOfItems", newAmount.toString());
+                setAmount({ number: newAmount });  
+            }
             const updatedItems = items.map((item: Item) => {
                 if(item.id === id){
                     const updateProduct = {...item , amount: number - 1, priceTotalOfItem: priceTotalOfItem - priceOfItem};
                     const savePrice: string | null = localStorage.getItem("priceOfList");
                     localStorage.setItem("priceOfList", (Number(savePrice) - priceOfItem).toString());
-                    setPriceOfList(Number(savePrice) - priceOfItem);
+                    setPriceOfList(priceOfList - priceOfItem);
                     localStorage.setItem(id.toString(), JSON.stringify(updateProduct))
                     return updateProduct;
                 }
@@ -88,10 +103,18 @@ const CartList = () => {
     }
 
     const removeItem = (id: number, TotalOfItem: number) => {
+        const amountOfItem: string | null = localStorage.getItem("amountOfItems");
+        const amountOfItemInList: string | null = localStorage.getItem(id.toString())
+        if (amountOfItem && amountOfItemInList) {
+            const saveAmount = JSON.parse(amountOfItemInList);
+            const newAmount = Number(amountOfItem) - saveAmount.amount;
+            localStorage.setItem("amountOfItems", newAmount.toString());
+            setAmount({ number: newAmount });  
+        }
         localStorage.removeItem(id.toString())
         const savePrice: string | null = localStorage.getItem("priceOfList");
         localStorage.setItem("priceOfList", (Number(savePrice) - TotalOfItem).toString());
-        setPriceOfList(Number(savePrice) - TotalOfItem);
+        setPriceOfList(priceOfList - TotalOfItem);
         const updatedItems = items.filter((item: Item) => (
             item.id !== id
         ))

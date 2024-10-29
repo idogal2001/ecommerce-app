@@ -1,8 +1,9 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams  } from 'react-router-dom';
 import { ProductsDataBackUp } from '../components/ProductsDataBackUp';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import NotFoundPage from './NotFoundPage';
 import Navbar from '../components/Navbar';
+import { amountContext } from './HomePage';
 
 interface product {
     category: string;
@@ -14,12 +15,21 @@ interface product {
     id: number;
 }
 
+// const Product = ({setAmount, categoryFilter ,maxPriceRange ,minPriceRange, priceSortLow, priceSortHigh, dateSortOld, dateSortNew, search}: ProductFilter) => {
 const ProductPage = () => {
+
+    const amountData = useContext(amountContext);
+
+    if (!amountData) {
+      throw new Error('amountContext is not provided');
+    }
+    
+    const [amount, setAmount] = amountData;
 
     const { id } = useParams<string>();
     const productInfo = ProductsDataBackUp.filter((product: product) => product.id === Number(id))
     const [priceTotal, setPriceTotal] = useState<number>(0);
-    const [amount, setAmount] = useState<number>(0);
+    const [amountItem, setItemAmount] = useState<number>(0);
     const [negativeAmount, setNegativeAmount] = useState<boolean>(false);
     const [tooMuchItems, setTooMuchItems] = useState<boolean>(false);
     const [notWholeNumber, setNotWholeNumber] = useState<boolean>(false);
@@ -52,18 +62,36 @@ const ProductPage = () => {
                 if(Number(value.currentTarget.value) > 0 && Number(value.currentTarget.value) <= 20 && (Number(value.currentTarget.value) % 1) === 0){
                     setTooMuchItems(false);
                     setNegativeAmount(false);
-                setAmount(Number(value.currentTarget.value));
+                    setItemAmount(Number(value.currentTarget.value));
                 setPriceTotal((Number(value.currentTarget.value) * productInfo[0].price))
         }
     }
 
-    const addProduct = (id: number, image: string, name: string, price: number, amount: number, priceTotal: number) => {
+    const addProduct = (id: number, image: string, name: string, price: number, amountItem: number, priceTotal: number) => {
         if(!negativeAmount && !tooMuchItems && !notWholeNumber){
-            const itemInfo = {name: name, priceOfItem: price, priceTotalOfItem: priceTotal , amount: amount, id: id};
+            const itemInfo = {name: name, priceOfItem: price, priceTotalOfItem: priceTotal , amount: amountItem, id: id};
+            const amount: string | null = localStorage.getItem("amountOfItems");
+            if(amount){
+                if(localStorage.getItem(id.toString()) === null){
+                    const newAmount = Number(amount) + amountItem;
+                    localStorage.setItem("amountOfItems", (amountItem + Number(amount)).toString());
+                    setAmount({ number: newAmount });
+                }
+                else{
+                    const amountOfSpeItem: string | null = localStorage.getItem(id.toString());
+                    if(amountOfSpeItem){
+                        const data = JSON.parse(amountOfSpeItem);
+                        const newAmount = amountItem + Number(amount) - data.amount;
+                        localStorage.setItem("amountOfItems", (amountItem + Number(amount) - data.amount).toString());
+                        setAmount({ number: newAmount })
+                    }
+                }
+            }
+            else{
+                localStorage.setItem("amountOfItems", amountItem.toString());
+                setAmount({ number: amountItem});
+            }
             localStorage.setItem(id.toString(), JSON.stringify(itemInfo));
-            // if(localStorage.getItem(id.toString()) === null){
-
-            // }
         }
     }
 
@@ -86,7 +114,7 @@ const ProductPage = () => {
                     {tooMuchItems && (<div className="errorChoice">Please choose less then 20!</div>)}
                     {notWholeNumber && (<div className="errorChoice">Please choose a whole number!</div>)}
                     <span className = "addCartButtonPadding">
-                        <button className="addCartButton" onClick={() => addProduct(productInfo[0].id, productInfo[0].image, productInfo[0].name, productInfo[0].price, amount, priceTotal)}>Add To Cart</button>
+                        <button className="addCartButton" onClick={() => addProduct(productInfo[0].id, productInfo[0].image, productInfo[0].name, productInfo[0].price, amountItem, priceTotal)}>Add To Cart</button>
                         </span>
                     <Link to="/"><span className="linkToHomePage">Continue shopping :</span></Link>
                 </div>

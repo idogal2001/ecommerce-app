@@ -1,10 +1,22 @@
-import { useState } from 'react';
+import { useState, createContext } from 'react';
 import React from 'react';
 import Product from '../components/Product';
 import Navbar from '../components/Navbar';
 import { CiSearch } from "react-icons/ci";
 
+export interface Counter {
+  number: number;
+}
+
+export interface LayOut {
+  layout: boolean;
+}
+
+export const amountContext = createContext<[Counter, React.Dispatch<React.SetStateAction<Counter>>] | undefined>(undefined)
+export const layoutContext = createContext<[LayOut, React.Dispatch<React.SetStateAction<LayOut>>] | undefined>(undefined);
+
 const HomePage = () => {
+  
 
   const [priceSortLow, setPriceSortLow] = useState<boolean>(false);
   const [priceSortHigh, setPriceSortHigh] = useState<boolean>(false);
@@ -14,7 +26,8 @@ const HomePage = () => {
   const [maxPrice, setMaxPrice] = useState<number>(4950)
   const [minPrice, setMinPrice] = useState<number>(1690)
   const [search, setSearch] = useState<string>()
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<Counter>({number : 0});
+  const [layout, setLayout] = useState<LayOut>({layout: false})
 
   const saveInputMax = (maxRange: React.KeyboardEvent<HTMLInputElement>) => {
     if(maxRange.key === 'Enter'){
@@ -89,9 +102,17 @@ const HomePage = () => {
      setCategoryList([...categoryListArray])
   }
 
+  const layoutChange3 = () => {
+    setLayout({layout: false});
+  }
+
+  const layoutChange5 = () => {
+    setLayout({ layout: true});
+  }
+
   return (
     <div className="webContainer">
-      <Navbar amountList={amount}/>
+      <Navbar />
       <div className="pageUnderNavBar">
         <div className="filterImageAndNameContainer">
         <div className="searchBar"><input  className="searchBarInput" type="text" placeholder="Search Product" name="search" onChange={searchBar}/><CiSearch /></div>
@@ -119,8 +140,15 @@ const HomePage = () => {
               <p className="buttonPadding"><input type="checkbox" className={categoryList.includes("Samsung") ? "button" : "buttonIsNotActive"} onClick={() => categoryFilter("Samsung")} /><span className="filterNames">Samsung</span></p>
               </div>
           </div>
+        <div className="rightSideOfPage"> 
+          <div className="layOutChange">Change Layout: <button className="layOutButton" onClick={layoutChange3}>3</button><button className="layOutButton" onClick={layoutChange5}>5</button></div> 
       <div className="productListPadding">
-      <Product setAmount={setAmount} categoryFilter={categoryList} maxPriceRange={maxPrice} minPriceRange={minPrice} priceSortLow={priceSortLow} priceSortHigh={priceSortHigh} dateSortOld={dateSortOld} dateSortNew={dateSortNew} search={search}/>
+        <amountContext.Provider value= {[amount, setAmount]}>
+          <layoutContext.Provider value= {[layout, setLayout]}>
+      <Product categoryFilter={categoryList} maxPriceRange={maxPrice} minPriceRange={minPrice} priceSortLow={priceSortLow} priceSortHigh={priceSortHigh} dateSortOld={dateSortOld} dateSortNew={dateSortNew} search={search}/>
+      </layoutContext.Provider>
+      </amountContext.Provider>
+      </div>
       </div>
       </div>
     </div>
