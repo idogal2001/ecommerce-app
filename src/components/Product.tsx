@@ -90,17 +90,16 @@ const Product = ({categoryFilter ,maxPriceRange ,minPriceRange, priceSortLow, pr
         newProductList.sort(({date:itemDateFirst}, {date:itemDateSecond}) =>  new Date(itemDateSecond).getTime() - new Date(itemDateFirst).getTime());
     }
 
-    const addProduct = (id: number, image: string, name: string, price: number) => {
+    const addProduct = (id: number, image: string, description: string, name: string, price: number) => {
         if(localStorage.getItem(id.toString()) === null){
-            const itemInfo = {name: name, priceOfItem: price, priceTotalOfItem: price , amount: 1, id: id};
+            const itemInfo = {name: name, image: image, description: description, priceOfItem: price, priceTotalOfItem: price , amount: 1, id: id};
             localStorage.setItem(id.toString(), JSON.stringify(itemInfo));
         }
         else{
             const amountItem: string | null = localStorage.getItem(id.toString())
             if(amountItem !== null){
             const data = JSON.parse(amountItem);
-            console.log(data);
-            const itemInfo = {name: name, priceOfItem: price, priceTotalOfItem: data.priceTotalOfItem , amount: data.amount, id: id};
+            const itemInfo = {name: name, image: image, description: description, priceOfItem: price, priceTotalOfItem: data.priceTotalOfItem , amount: data.amount, id: id};
             const updatedProduct = { ...itemInfo, amount: data.amount + 1, priceTotalOfItem: data.priceTotalOfItem + data.priceOfItem };
             localStorage.setItem(id.toString(), JSON.stringify(updatedProduct));
             }
@@ -129,14 +128,14 @@ const Product = ({categoryFilter ,maxPriceRange ,minPriceRange, priceSortLow, pr
                             description: product.description,
                             id: product.id 
                         }}>
-                        <p className="image"><img alt = {`product${product.id}`} src = {product.image}></img></p>
+                        <p><img className="image" alt = {`product${product.id}`} src = {product.image}></img></p>
                         </Link>
                         <p className="name">Name: {product.name}</p>
                         <p className="date">Date: {product.date}</p>
                         <p className="price">Price: {product.price}₪</p>
                         <p className="discription">discription: {product.description}</p>
                         <div className="addCartButtonFlex">
-                        <button className="addCartButton" onClick={() => addProduct(product.id, product.image, product.name, product.price)}>add to cart</button>
+                        <button className="addCartButton" onClick={() => addProduct(product.id, product.image, product.description, product.name, product.price)}>add to cart</button>
                         </div>
                     </div>
                     ))

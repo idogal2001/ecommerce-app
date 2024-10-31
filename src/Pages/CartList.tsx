@@ -60,8 +60,7 @@ const CartList = () => {
             const updatedItems = items.map((item: Item) => {
                 if (item.id === id) {
                     const updatedProduct = { ...item, amount: number + 1, priceTotalOfItem: priceTotalOfItem + priceOfItem};
-                    const savePrice: string | null  = localStorage.getItem("priceOfList");
-                    localStorage.setItem("priceOfList", (priceOfItem  + Number(savePrice)).toString());
+                    localStorage.setItem("priceOfList", (priceOfItem  + priceOfList).toString());
                     setPriceOfList(priceOfItem + priceOfList);
                     localStorage.setItem(id.toString(), JSON.stringify(updatedProduct)); 
                     return updatedProduct;
@@ -74,8 +73,8 @@ const CartList = () => {
     }
     
     const removingItem = (number: number,priceOfItem: number, priceTotalOfItem: number, id: number) => {
-        if(number === 0){
-            alert("You can't buy negative amount of items XD")
+        if(number === 1){
+            removeItem(id, priceTotalOfItem)
         }
         else{
             const amountOfItem: string | null = localStorage.getItem("amountOfItems");
@@ -87,8 +86,7 @@ const CartList = () => {
             const updatedItems = items.map((item: Item) => {
                 if(item.id === id){
                     const updateProduct = {...item , amount: number - 1, priceTotalOfItem: priceTotalOfItem - priceOfItem};
-                    const savePrice: string | null = localStorage.getItem("priceOfList");
-                    localStorage.setItem("priceOfList", (Number(savePrice) - priceOfItem).toString());
+                    localStorage.setItem("priceOfList", (priceOfList - priceOfItem).toString());
                     setPriceOfList(priceOfList - priceOfItem);
                     localStorage.setItem(id.toString(), JSON.stringify(updateProduct))
                     return updateProduct;
@@ -112,8 +110,7 @@ const CartList = () => {
             setAmount({ number: newAmount });  
         }
         localStorage.removeItem(id.toString())
-        const savePrice: string | null = localStorage.getItem("priceOfList");
-        localStorage.setItem("priceOfList", (Number(savePrice) - TotalOfItem).toString());
+        localStorage.setItem("priceOfList", (priceOfList - TotalOfItem).toString());
         setPriceOfList(priceOfList - TotalOfItem);
         const updatedItems = items.filter((item: Item) => (
             item.id !== id
@@ -125,6 +122,14 @@ const CartList = () => {
         setPopUp(!popUp);
     }
 
+    const change = (description: string) => {
+        let newDes: string = "";
+        for(let i = 0; i <= 5; i++){
+            newDes += newDes + description[i];
+        }
+        return newDes;
+    }
+
     return (
         <>
         <Navbar />
@@ -132,7 +137,16 @@ const CartList = () => {
             <Link to="/"><span className="linkToHomePage">Continue shopping :)</span></Link>
             <div className="cartListContainer">
             {items.map((item: Item) => (
-                <span className="itemRow" key={item.id}><span className="itemInCart">{item.name} ,Amount: {item.amount}, Price: {item.priceTotalOfItem}₪</span><span className="cartPageButton"><button className="itemButton" onClick={() => addingItem(item.amount, item.priceOfItem, item.priceTotalOfItem, item.id)}>+</button><button className="itemButton" onClick={() => removingItem(item.amount, item.priceOfItem, item.priceTotalOfItem, item.id)}>-</button><button className="itemButton" onClick={() => removeItem(item.id, item.priceTotalOfItem)}>X</button></span></span>
+                <span className="itemBox" key={item.id}>
+                    <span className="leftSideCartContainer">
+                        <p className="nameDescriptionFlex"><div className="imgPadding"><img className="img" alt = {`product${item.id}`} src = {item.image}></img></div><div className="nameAndDesPadding"><p className="nameAndDes">{item.name} <p className="itemDes">{change(item.description)}...</p></p></div></p>
+                    </span>
+                        <span className="rightSideCartContainer">{item.priceTotalOfItem}₪ {item.amount}
+                            <button className="itemButton" onClick={() => addingItem(item.amount, item.priceOfItem, item.priceTotalOfItem, item.id)}>+</button>
+                            <button className="itemButton" onClick={() => removingItem(item.amount, item.priceOfItem, item.priceTotalOfItem, item.id)}>-</button>
+                            <button className="itemButton" onClick={() => removeItem(item.id, item.priceTotalOfItem)}>X</button>
+                        </span>
+                </span>
             ))}
             </div>
             <span>Total Price: {priceOfList}₪</span>   
@@ -141,13 +155,12 @@ const CartList = () => {
         {popUp && (// check how to do it differently if condition
     <div className="popUpBackground">
         <div className="popUp">
-        <p>
-        Congrats!
+        <p className="checkUutBox">
         {items.map((item: Item) => (
-            <span className="itemRow" key={item.id}><span className="itemInCart">{item.name} ,Amount: {item.amount}, Price: {item.priceTotalOfItem}₪</span><span className="cartPageButton"></span></span>
+            <span className="checkOutBoxItem" key={item.id}><p><img className="img" alt = {`product${item.id}`} src = {item.image}></img></p><p>{item.name}</p><p>{item.amount}</p><p>{item.priceTotalOfItem}₪</p></span>
         ))}
         </p>
-        <button className="checkOutButton" onClick={checkOut}>Close!</button>
+        <div className="checkOutButtonPadding"><button className="checkOutButton" onClick={checkOut}>Close!</button></div>
         </div>
     </div>
         )}

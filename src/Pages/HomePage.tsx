@@ -32,7 +32,7 @@ const HomePage = () => {
   const saveInputMax = (maxRange: React.KeyboardEvent<HTMLInputElement>) => {
     if(maxRange.key === 'Enter'){
       if(Number(maxRange.currentTarget.value) > 4902){
-        alert("highest price is 4902")
+        alert("The most expensive product is 4901 please choose a lower price!")
         setMaxPrice(4902);
       }
       if(Number(maxRange.currentTarget.value) <= 1709){
@@ -47,7 +47,7 @@ const HomePage = () => {
   const saveInputMin = (minRange: React.KeyboardEvent<HTMLInputElement>) => {
     if(minRange.key === 'Enter'){
       if(Number(minRange.currentTarget.value) < 1708){
-        alert("cheapest price is 1709")
+        alert("cheapest product price is 1709")
         setMinPrice(1708);
       }
       if(Number(minRange.currentTarget.value) >= 4901){
@@ -144,7 +144,7 @@ const HomePage = () => {
           <div className="layOutChange">Change Layout: <button className="layOutButton" onClick={layoutChange3}>3</button><button className="layOutButton" onClick={layoutChange5}>5</button></div> 
       <div className="productListPadding">
         <amountContext.Provider value= {[amount, setAmount]}>
-          <layoutContext.Provider value= {[layout, setLayout]}>
+        <layoutContext.Provider value= {[layout, setLayout]}>
       <Product categoryFilter={categoryList} maxPriceRange={maxPrice} minPriceRange={minPrice} priceSortLow={priceSortLow} priceSortHigh={priceSortHigh} dateSortOld={dateSortOld} dateSortNew={dateSortNew} search={search}/>
       </layoutContext.Provider>
       </amountContext.Provider>

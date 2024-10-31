@@ -33,7 +33,7 @@ export const ProductsDataBackUp = [
     "date": "3/13/2024",
     "price": 3043,
     "description": "metus arcu adipiscing molestie hendrerit at vulputate vitae nisl aenean lectus pellentesque eget nunc donec quis orci eget orci vehicula condimentum curabitur in libero ut massa volutpat convallis",
-    "image": "http://dummyimage.com/10x10.png/ff4444/ffffff",
+    "image": "http://dummyimage.com/100x100.png/ff4444/ffffff",
     "id": 4
   },
   {
