@@ -120,10 +120,11 @@ body {
   overflow: hidden;
 }
 
-.imagee{
-  height: auto; 
+.image{
   max-width: 100%;
-  
+  max-height: 100%;
+  min-width: 6rem;
+  min-height: 6rem;
 }
 
 .addCartButtonFlex{
@@ -285,25 +286,91 @@ width: 80%
   align-items: center;
   flex-direction: column;
   overflow-y: auto;
-  background:url(../public/cartBackground.jpg);
+  background: black;
+  border-radius: 2rem;
   line-height: 4rem;
-  height: 23rem;
-  width: 36rem;
+  height: 26rem;
+  width: 60rem;
   padding: 2rem;
+  margin-top: 1rem;
 }
 
-.itemRow{
+.itemBox{
   display: flex;
   align-items: center;
+  justify-content: center;
   width: 100%;
+  height: 7rem;
+  margin-bottom: 1rem;
 }
 
-.itemInCart{
-  width: 100%;
+.leftSideCartContainer{
+  width: 60%;
+  height: 8rem;
 }
 
-.cartPageButton{
+.rightSideCartContainer{
+  display: flex;
+  justify-content: end;
   width: 40%;
+}
+
+.nameDescriptionFlex{
+  display: flex;
+  align-items: flex-start;
+}
+
+.nameAndDes{
+  display: flex;
+  flex-direction: column;
+  line-height: 1.6rem;
+  margin-left: 2rem;
+}
+
+.nameAndDesPadding{
+  width: 27rem;
+  height: 8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.itemDes{
+  word-break: break-all;
+}
+
+.img{
+  max-width: 10rem;
+  max-height: 10rem;
+  min-width: 6rem;
+  margin-right: 1rem;
+}
+
+.imgPadding{
+  height: 7rem;
+  width: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cartPageDes{
+  display: flex;
+  flex-direction: row;
+  width: 5rem;
+  height: 5rem;
+}
+
+.checkOutButton{
+  padding: 0.4rem;
+  border-radius: 0.4rem;
+  color: white;
+  background: black;
+}
+
+.checkOutButton:hover{
+  color: black;
+  background: white;
 }
 
 .addCartButtonPadding{
@@ -333,8 +400,13 @@ width: 80%
   width: 2.5rem;
   border: solid grey 0.15rem;
   border-radius: 0.3rem;
-  margin: 0.3rem;
+  margin: 0.5rem;
   align-self: end;
+}
+
+.itemButton:active{
+  background: white;
+  color: black;
 }
 
 .priceOfItem{
@@ -379,8 +451,30 @@ width: 80%
 }
 
 .popUp{
-  padding: 10%;
+  height: 39rem;
+  width: 70rem;
   background-color: grey;
+  border-radius: 1rem;
+  overflow-y: auto;
+}
+
+.checkUutBox{
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.checkOutBoxItem{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 6rem;
+}
+
+.checkOutButtonPadding{
+display: flex;
+justify-content: center;
+margin: 1rem;
 }
 
 .sortBy{

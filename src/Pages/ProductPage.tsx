@@ -67,9 +67,9 @@ const ProductPage = () => {
         }
     }
 
-    const addProduct = (id: number, image: string, name: string, price: number, amountItem: number, priceTotal: number) => {
+    const addProduct = (id: number, image: string, description: string, name: string, price: number, amountItem: number, priceTotal: number) => {
         if(!negativeAmount && !tooMuchItems && !notWholeNumber){
-            const itemInfo = {name: name, priceOfItem: price, priceTotalOfItem: priceTotal , amount: amountItem, id: id};
+            const itemInfo = {name: name, image: image, description: description, priceOfItem: price, priceTotalOfItem: priceTotal , amount: amountItem, id: id};
             const amount: string | null = localStorage.getItem("amountOfItems");
             if(amount){
                 if(localStorage.getItem(id.toString()) === null){
@@ -114,7 +114,7 @@ const ProductPage = () => {
                     {tooMuchItems && (<div className="errorChoice">Please choose less then 20!</div>)}
                     {notWholeNumber && (<div className="errorChoice">Please choose a whole number!</div>)}
                     <span className = "addCartButtonPadding">
-                        <button className="addCartButton" onClick={() => addProduct(productInfo[0].id, productInfo[0].image, productInfo[0].name, productInfo[0].price, amountItem, priceTotal)}>Add To Cart</button>
+                        <button className="addCartButton" onClick={() => addProduct(productInfo[0].id, productInfo[0].image, productInfo[0].description, productInfo[0].name, productInfo[0].price, amountItem, priceTotal)}>Add To Cart</button>
                         </span>
                     <Link to="/"><span className="linkToHomePage">Continue shopping :</span></Link>
                 </div>

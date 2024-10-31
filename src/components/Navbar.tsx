@@ -17,7 +17,7 @@ const Navbar = (amountList: any) => {
 
     return (
         <nav className="navbar">
-            <div className="leftNav"><Link to="/" className="navbarInfo">Home</Link><span className="navbarInfo">About Us</span><span className="navbarInfo">Services</span><span className="navbarInfo">Contact</span></div>
+            <div className="leftNav"><Link to="/" className="navbarInfo">Home</Link></div>
         <div className="rightNav">
         <Link to="/CartList"><button className="cartButton">{amount}<span className="cartButtonPadding"> Cart</span><FaCartShopping /></button></Link>
         </div>
