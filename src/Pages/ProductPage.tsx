@@ -1,5 +1,5 @@
 import { Link, useParams  } from 'react-router-dom';
-import { ProductsDataBackUp } from '../components/ProductsDataBackUp';
+import { ProductsDataBackUp } from '../ProductsDataBackUp';
 import React, { useState, useContext } from 'react';
 import NotFoundPage from './NotFoundPage';
 import Navbar from '../components/Navbar';
@@ -15,7 +15,6 @@ interface product {
     id: number;
 }
 
-// const Product = ({setAmount, categoryFilter ,maxPriceRange ,minPriceRange, priceSortLow, priceSortHigh, dateSortOld, dateSortNew, search}: ProductFilter) => {
 const ProductPage = () => {
 
     const amountData = useContext(amountContext);
@@ -33,42 +32,50 @@ const ProductPage = () => {
     const [negativeAmount, setNegativeAmount] = useState<boolean>(false);
     const [tooMuchItems, setTooMuchItems] = useState<boolean>(false);
     const [notWholeNumber, setNotWholeNumber] = useState<boolean>(false);
+    const [noCahnge, setNoChange] = useState<boolean>(true);
+
 
     const changeAmount = (value: React.FormEvent<HTMLInputElement>) => {
-                if(value.currentTarget.value === ""){
-                    setNegativeAmount(false);
+                if(Number(value.currentTarget.value) === 0){
+                    setNoChange(true);
                     setTooMuchItems(false);
                     setNotWholeNumber(false);
+                    setNegativeAmount(false);
                     setPriceTotal(0);
-                }
+                }              
                 if(Number(value.currentTarget.value) > 20){
                     setTooMuchItems(true);
                     setNotWholeNumber(false);
                     setNegativeAmount(false);
+                    setNoChange(false);
                     setPriceTotal(0);
                 }
-                if(Number(value.currentTarget.value) <= 0 && value.currentTarget.value !== ""){
+                if(Number(value.currentTarget.value) < 0){
                     setNegativeAmount(true);
                     setTooMuchItems(false);
                     setNotWholeNumber(false);
+                    setNoChange(false);
                     setPriceTotal(0);
                 }
                 if((Number(value.currentTarget.value) % 1) !== 0){
                     setNotWholeNumber(true);
                     setNegativeAmount(false);
                     setTooMuchItems(false);
+                    setNoChange(false);
                     setPriceTotal(0);
                 }
                 if(Number(value.currentTarget.value) > 0 && Number(value.currentTarget.value) <= 20 && (Number(value.currentTarget.value) % 1) === 0){
                     setTooMuchItems(false);
                     setNegativeAmount(false);
+                    setNotWholeNumber(false);
+                    setNoChange(false);
                     setItemAmount(Number(value.currentTarget.value));
                 setPriceTotal((Number(value.currentTarget.value) * productInfo[0].price))
         }
-    }
+    }              
 
     const addProduct = (id: number, image: string, description: string, name: string, price: number, amountItem: number, priceTotal: number) => {
-        if(!negativeAmount && !tooMuchItems && !notWholeNumber){
+        if(!negativeAmount && !tooMuchItems && !notWholeNumber && !noCahnge){
             const itemInfo = {name: name, image: image, description: description, priceOfItem: price, priceTotalOfItem: priceTotal , amount: amountItem, id: id};
             const amount: string | null = localStorage.getItem("amountOfItems");
             if(amount){
@@ -116,7 +123,7 @@ const ProductPage = () => {
                     <span className = "addCartButtonPadding">
                         <button className="addCartButton" onClick={() => addProduct(productInfo[0].id, productInfo[0].image, productInfo[0].description, productInfo[0].name, productInfo[0].price, amountItem, priceTotal)}>Add To Cart</button>
                         </span>
-                    <Link to="/"><span className="linkToHomePage">Continue shopping :</span></Link>
+                    <Link to="/"><span className="linkToHomePage">Continue shopping :)</span></Link>
                 </div>
             </div>
         </div>

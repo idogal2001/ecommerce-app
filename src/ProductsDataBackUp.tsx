@@ -657,4 +657,13 @@ export const ProductsDataBackUp = [
     "image": "http://dummyimage.com/157x100.png/cc0000/ffffff",
     "id": 73
   },
+  {
+    "category": "Huawei",
+    "name": "Eyal",
+    "date": "8/16/2024",
+    "price": 1000000,
+    "description": "the best of the best of the best Eyal the king destroyer of bugs and worlds and joy and he has a lot.",
+    "image": "http://dummyimage.com/600x300.png/ff4444/ffffff",
+    "id": 74
+  },
 ]

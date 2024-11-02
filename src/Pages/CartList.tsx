@@ -1,4 +1,4 @@
-import { ProductsDataBackUp } from '../components/ProductsDataBackUp';
+import { ProductsDataBackUp } from '../ProductsDataBackUp';
 import { Link } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import Navbar from '../components/Navbar';

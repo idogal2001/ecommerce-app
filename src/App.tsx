@@ -1,37 +1,35 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import React, { useState } from 'react';
-import './App.css';
-import CartList from './Pages/CartList';
-import HomePage, { amountContext } from './Pages/HomePage';
-import ProductPage from './Pages/ProductPage';
-import NotFoundPage from './Pages/NotFoundPage';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import React, { useState } from "react";
+import "./App.css";
+import CartList from "./Pages/CartList";
+import HomePage, { amountContext } from "./Pages/HomePage";
+import ProductPage from "./Pages/ProductPage";
+import NotFoundPage from "./Pages/NotFoundPage";
 
- interface Counter {
+interface Counter {
   number: number;
 }
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <HomePage />,
     errorElement: <NotFoundPage />,
   },
   {
-    path: '/CartList',
+    path: "/CartList",
     element: <CartList />,
   },
   {
-    path: '/ProductPage',
+    path: "/ProductPage",
     element: <ProductPage />,
     errorElement: <NotFoundPage />,
-    children: [
-      { path: ':id', element: <ProductPage /> },
-    ],
+    children: [{ path: ":id", element: <ProductPage /> }],
   },
 ]);
 
 const App = () => {
-  const [amount, setAmount] = useState<Counter>({number : 0});
+  const [amount, setAmount] = useState<Counter>({ number: 0 });
 
   return (
     <amountContext.Provider value={[amount, setAmount]}>
@@ -40,4 +38,4 @@ const App = () => {
   );
 };
 
-export default App
+export default App;
