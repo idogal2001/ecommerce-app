@@ -51,6 +51,7 @@ body {
   padding: 0.2rem;
   border-radius: 0.2rem;
   border: solid black 0.3rem;
+  cursor: pointer;
 }
 
 .pageUnderNavBar{
@@ -84,6 +85,7 @@ body {
   padding: 0.3rem;
   margin: 0.2rem;
   background-color: #6CB4EE;
+  cursor: pointer; 
 }
 
 .productListPadding{
@@ -118,6 +120,10 @@ body {
   width: 14rem;
   height: 27rem;
   overflow: hidden;
+}
+
+.productBox:hover .addCartButtonProductPage{
+  display: block;
 }
 
 .image{
@@ -159,7 +165,8 @@ body {
   padding: 0.2rem;
   width:6rem;
   background:white;
-  border-radius: 10%;;
+  border-radius: 10%;
+  cursor: pointer; 
 }
 
 .cartButtonPadding{
@@ -211,6 +218,7 @@ body {
   width: 1rem;
   height: 1rem;
   margin-right: auto;
+  cursor: pointer; 
 }
 
 .buttonIsNotActive{
@@ -218,7 +226,7 @@ body {
   height: 1rem;
   border-radius: 0.4rem;
   margin-right: auto;
-
+  cursor: pointer; 
 }
 
 .filterNames{
@@ -366,6 +374,7 @@ width: 80%
   border-radius: 0.4rem;
   color: white;
   background: black;
+  cursor: pointer; 
 }
 
 .checkOutButton:hover{
@@ -384,10 +393,28 @@ width: 80%
   width:12rem;
   border: solid grey 0.15rem;
   margin: 1rem;
-  border-radius: 0.3rem;
+  border-radius: 0.4rem;
+  cursor: pointer; 
+}
+
+.addCartButtonProductPage{
+  background: black;
+  color: white;
+  padding: 0.8rem;
+  width:12rem;
+  border: solid grey 0.15rem;
+  margin: 1rem;
+  border-radius: 0.4rem;
+  display: none;
+  cursor: pointer; 
 }
 
 .addCartButton:active{
+  background: white;
+  color: black;
+}
+
+.addCartButtonProductPage:active{
   background: white;
   color: black;
 }
@@ -402,6 +429,7 @@ width: 80%
   border-radius: 0.3rem;
   margin: 0.5rem;
   align-self: end;
+  cursor: pointer; 
 }
 
 .itemButton:active{
