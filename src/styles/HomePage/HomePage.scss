@@ -1,0 +1,28 @@
+
+  .webContainer{
+    display: flex;
+  }
+
+  .pageUnderNavBar{
+    display: flex;
+    margin-top: 2.5%;
+    width: 100%;
+    height: 80%;
+  }
+
+  .rightSideOfPage{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-left: 13%;
+    margin-right: -8%;
+  }
+  
+  .productListPadding{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  

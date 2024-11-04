@@ -1,8 +1,9 @@
 import React ,{ useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
-
-const Navbar = (amountList: any) => {
+import '../styles/Navbar.scss'
+  
+const Navbar = ({amountList}: any) => {
     const [amount, setAmount] = useState<number>(0);
 
     useEffect(() => {

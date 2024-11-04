@@ -1,14 +1,27 @@
 import React from "react";
 
-interface DateOldProps{
-    setSortState: React.Dispatch<React.SetStateAction<string | undefined>>;
-    SortType: string;
+interface ProductListProps {
+  category: string;
+  name: string;
+  date: string;
+  price: number;
+  description: string;
+  image: string;
+  id: number;
 }
 
-const DateOld = ({ setSortState, SortType }: DateOldProps) => {
+interface DateOldProps{
+    productList: ProductListProps[];
+    setProductList: React.Dispatch<React.SetStateAction<ProductListProps[]>>;
+}
+
+const DateOld = ({ productList, setProductList }: DateOldProps) => {
 
     const dateSortingOld = () => {
-        setSortState(SortType);
+      setProductList([...productList].sort(
+        ({ date: itemDateFirst }, { date: itemDateSecond }) =>
+          new Date(itemDateFirst).getTime() - new Date(itemDateSecond).getTime()
+      ));
       };
 
     return (
