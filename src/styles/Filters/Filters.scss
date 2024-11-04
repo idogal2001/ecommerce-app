@@ -24,7 +24,6 @@
     align-items: center;
   }
 
-  
 .filterNames{
     width: 80%
     }
@@ -33,7 +32,6 @@
  padding: 0.4rem;
  margin: 0.3rem;
   }
-  
   
 .sortBy{
     margin-left: 5%;
@@ -52,3 +50,7 @@
     top: 0;
     bottom:0;
   }  
+
+  .filterImageAndNameContainer::-webkit-scrollbar {
+    display: none;
+  }

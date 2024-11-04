@@ -1,7 +1,7 @@
 import React from "react";
 import { useContext } from "react";
 import { amountContext } from "../../Pages/HomePage";
-import 'C:/code/trainning/reactEcommerce/ecommerce-app/src/styles/ProductList/AddItem.scss'
+import 'C:/code/trainning/reactEcommerce/ecommerce-app/src/styles/ProductList/AddItemProductList.scss'
 
 interface AddProductProps {
     id: number

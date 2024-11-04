@@ -19,6 +19,10 @@
     overflow-y: auto;
   }
   
+  .popUp::-webkit-scrollbar {
+    display: none;
+  }
+
   .checkUutBox{
     display: grid;
     grid-template-columns: auto auto auto;

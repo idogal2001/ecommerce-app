@@ -24,6 +24,10 @@
     margin-top: 1rem;
   }
 
+  .cartListContainer::-webkit-scrollbar {
+    display: none;
+  }
+
   .itemBox{
     display: flex;
     align-items: center;

@@ -31,42 +31,18 @@ const ProductPage = () => {
     const productInfo = ProductsDataBackUp.filter((product: product) => product.id === Number(id))
     const [priceTotal, setPriceTotal] = useState<number>(0);
     const [itemAmount, setItemAmount] = useState<number>(0);
-    const [checkAmount, setCheckAmount] = useState({
-        NegativeAmount: false,
-        TooMuchItems: false,
-        NotWholeNumber: false,
-        NoChange: true
-    })
+    const [allowAdd, setAllowAdd] = useState<boolean>(false);
 
     const changeAmount = (value: React.FormEvent<HTMLInputElement>) => {
-        const checkAmountData={
-            NegativeAmount: false,
-            TooMuchItems: false,
-            NotWholeNumber: false,
-            NoChange: true
-        }
-                if(Number(value.currentTarget.value) === 0){
-                    checkAmountData.NoChange = true;
-                    setPriceTotal(0);
-                }              
-                if(Number(value.currentTarget.value) > 20){
-                    checkAmountData.TooMuchItems = true;
-                    setPriceTotal(0);
-                }
-                if(Number(value.currentTarget.value) < 0){
-                    checkAmountData.NegativeAmount = true;
-                    setPriceTotal(0);
-                }
-                if((Number(value.currentTarget.value) % 1) !== 0){
-                    checkAmountData.NotWholeNumber = true;
-                    setPriceTotal(0);
-                }
                 if(Number(value.currentTarget.value) > 0 && Number(value.currentTarget.value) <= 20 && (Number(value.currentTarget.value) % 1) === 0){
-                    checkAmountData.NoChange = false;
+                    setAllowAdd(true);
                     setItemAmount(Number(value.currentTarget.value));
                     setPriceTotal((Number(value.currentTarget.value) * productInfo[0].price))
         }
-        setCheckAmount(checkAmountData);
+        else{
+            setAllowAdd(false);
+            setPriceTotal(0);
+        }
     }              
 
     if(Number(id) <= ProductsDataBackUp.length && Number(id) >=0){
@@ -84,9 +60,6 @@ const ProductPage = () => {
                         <input className="itemInput" type="number" placeholder='Amount of Item' onChange={changeAmount}></input>
                     </span>
                     <span  className="priceOfItem">Price: {priceTotal}₪</span>
-                    {checkAmount.NegativeAmount && (<div className="errorChoice">Please choose a positive number!</div>)}
-                    {checkAmount.TooMuchItems && (<div className="errorChoice">Please choose less then 20!</div>)}
-                    {checkAmount.NotWholeNumber && (<div className="errorChoice">Please choose a whole number!</div>)}
                     <amountContext.Provider value={[amount, setAmount]}>
                     <AddItemProductPage
                     id={productInfo[0].id}
@@ -96,10 +69,7 @@ const ProductPage = () => {
                     price={productInfo[0].price}
                     priceTotal={priceTotal}
                     itemAmount={itemAmount}
-                    noChange={checkAmount.NoChange} 
-                    tooMuch={checkAmount.TooMuchItems} 
-                    negativeAmount={checkAmount.NegativeAmount} 
-                    notWhole={checkAmount.NotWholeNumber}
+                    allowAdd={allowAdd}
                     />
                     </amountContext.Provider>
                     <Link to="/"><span className="linkToHomePage">Continue shopping :)</span></Link>

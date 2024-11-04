@@ -10,13 +10,10 @@ interface addItemProductPageProps {
     price: number;
     priceTotal: number;
     itemAmount: number;
-    noChange: boolean;
-    tooMuch: boolean;
-    negativeAmount: boolean;
-    notWhole: boolean;
+    allowAdd: boolean;
 }
 
-const AddItemProductPage = ({ id, image, description, name, price, priceTotal, itemAmount, noChange, tooMuch, negativeAmount, notWhole }: addItemProductPageProps) => {
+const AddItemProductPage = ({ id, image, description, name, price, priceTotal, itemAmount, allowAdd }: addItemProductPageProps) => {
 
     const amountData = useContext(amountContext);
 
@@ -27,7 +24,7 @@ const AddItemProductPage = ({ id, image, description, name, price, priceTotal, i
     const [, setAmount] = amountData;
 
     const addProduct = (id: number, image: string, description: string, name: string, price: number, itemAmount: number, priceTotal: number) => {
-        if(!noChange && !tooMuch && !negativeAmount && !notWhole){
+        if(allowAdd){
             const itemInfo = {name: name, image: image, description: description, priceOfItem: price, priceTotalOfItem: priceTotal , amount: itemAmount, id: id};
             const amount: string | null = localStorage.getItem("amountOfItems");
             if(amount){
