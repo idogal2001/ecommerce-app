@@ -1,0 +1,40 @@
+.navbar{
+    display: flex;
+    background: white;
+    color: black;
+    width: 100%;
+    padding: 0.4%;
+    position: fixed; 
+  }
+  
+  .leftNav{
+    margin-top: 0.15rem;
+    width: 100%;
+  }
+  
+  .rightNav{
+    width: 90%;
+    margin-right: 2%;
+    display: flex;
+    justify-content: end;
+  }
+  
+  .navbarInfo{
+    margin-left: 3rem;
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+    border: solid black 0.3rem;
+    cursor: pointer;
+  }
+
+.cartButton{
+    padding: 0.2rem;
+    width:6rem;
+    background:white;
+    border-radius: 10%;
+    cursor: pointer; 
+  }
+
+  .cartButtonPadding{
+    margin-right: 15%;
+  }

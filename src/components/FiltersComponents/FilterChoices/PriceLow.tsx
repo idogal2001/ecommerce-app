@@ -1,14 +1,29 @@
 import React from "react"
 
-interface PriceLowProps{
-  setSortState: React.Dispatch<React.SetStateAction<string | undefined>>
-  SortType: string;
+interface ProductListProps {
+  category: string;
+  name: string;
+  date: string;
+  price: number;
+  description: string;
+  image: string;
+  id: number;
 }
 
-const PriceLow = ({ setSortState,  SortType }: PriceLowProps) => {
+interface PriceLowProps{
+  productList: ProductListProps[];
+  setProductList: React.Dispatch<React.SetStateAction<ProductListProps[]>>;
+}
+
+
+const PriceLow = ({ productList, setProductList }: PriceLowProps) => {
 
     const priceSortingLow = () => {
-        setSortState(SortType);
+      setProductList([...productList].sort(
+        ({ price: itemPriceFirst }, { price: itemPriceSecond }) =>
+          itemPriceFirst - itemPriceSecond
+      ));
+
       };
       
     return (

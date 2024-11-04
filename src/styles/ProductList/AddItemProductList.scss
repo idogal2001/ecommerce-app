@@ -1,0 +1,21 @@
+.addCartButtonFlex{
+    margin-top: auto;
+  }
+  
+.addCartButtonProductPage{
+    background: black;
+    color: white;
+    padding: 0.8rem;
+    width:12rem;
+    border: solid grey 0.15rem;
+    margin: 1rem;
+    border-radius: 0.4rem;
+    display: none;
+    cursor: pointer; 
+  }
+
+  .addCartButtonProductPage:active{
+    background: white;
+    color: black;
+  }
+  
