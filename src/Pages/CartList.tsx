@@ -60,7 +60,9 @@ const CartList = () => {
     }
 
     const checkOut =() => {
-        setPopUp(!popUp);
+        if(items.length !== 0){
+            setPopUp(!popUp);
+        }
     }
 
     return (
@@ -72,7 +74,7 @@ const CartList = () => {
             {items.map((item: Item) => (
                 <span className="itemBox" key={item.id}>
                     <span className="leftSideCartContainer">
-                        <p className="nameDescriptionFlex"><div className="imgPadding"><img className="img" alt = {`product${item.id}`} src = {item.image}></img></div><div className="nameAndDesPadding"><p className="nameAndDes">{item.name} <p className="itemDes">{change(item.description)}...</p></p></div></p>
+                        <p className="nameDescriptionFlex"><div className="imgPadding"><Link to={`/ProductPage/${item.id}`}><img className="img" alt = {`product${item.id}`} src = {item.image}></img></Link></div><div className="nameAndDesPadding"><p className="nameAndDes">{item.name} <p className="itemDes">{change(item.description)}...</p></p></div></p>
                     </span>
                         <span className="rightSideCartContainer">{item.priceTotalOfItem}₪ {item.amount}
                         <amountContext.Provider value={[amount, setAmount]}>

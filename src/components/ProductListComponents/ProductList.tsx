@@ -14,7 +14,7 @@ interface ProductProps {
   id: number;
 }
 
-interface ProductFilter {
+interface ProductListProps {
   categoryFilter: string[];
   maxPriceRange: number | undefined;
   minPriceRange: number | undefined;
@@ -30,7 +30,7 @@ const ProductList = ({
   productList,
   search,
   layout
-}: ProductFilter) => {
+}: ProductListProps) => {
     const amountData = useContext(amountContext);
 
     if (!amountData) {
@@ -96,7 +96,7 @@ const ProductList = ({
           <p>Name: {product.name}</p>
           <p>Date: {product.date}</p>
           <p>Price: {product.price}₪</p>
-          <p>discription: {product.description}</p>
+          <p className="description">description: {product.description}</p>
           <amountContext.Provider value={[amount, setAmount]}>
           <AddProduct 
           id={product.id} 

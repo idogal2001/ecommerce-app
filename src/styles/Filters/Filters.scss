@@ -8,29 +8,40 @@
     align-items: center;
     border-radius: 3%;
     padding: 3%;
+    overflow-y: scroll;
   }
+
+  .priceSort::-webkit-scrollbar, .dateSort::-webkit-scrollbar, .categories::-webkit-scrollbar {
+    display: none;
+  }
+
   
 .button{
     width: 1rem;
     height: 1rem;
     margin-right: auto;
     cursor: pointer; 
+
   }
 
 .buttonPadding{
     width: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
   }
 
+.buttonCategoriesPadding{
+  width: 100%;
+}
+
 .filterNames{
+    margin-left: auto;
     width: 80%
     }
   
 .rangePriceInput{
- padding: 0.4rem;
- margin: 0.3rem;
+ padding: 1.7%;
+ margin: 2.3%;
   }
   
 .sortBy{

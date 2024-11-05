@@ -51,13 +51,13 @@ const ProductPage = () => {
             <Navbar amountList={amount}/>
             <div className="webContainerProduct">
                 <div className="productInfo">
-                    <img src={productInfo[0].image} alt="Product" /> 
+                    <img className="img" src={productInfo[0].image} alt="Product" /> 
                     <p>{productInfo[0].name}</p>
                     <p>Category: {productInfo[0].category}</p>
                     <p>Price: {productInfo[0].price}₪</p>
                     <span className="descriptionPadding">Description: {productInfo[0].description}</span> 
                     <span className="productAmount">
-                        <input className="itemInput" type="number" placeholder='Amount of Item' onChange={changeAmount}></input>
+                        <input className="itemInput" type="number" name='Amount of Item' defaultValue="0"onChange={changeAmount}></input>
                     </span>
                     <span  className="priceOfItem">Price: {priceTotal}₪</span>
                     <amountContext.Provider value={[amount, setAmount]}>

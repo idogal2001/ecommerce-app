@@ -1,5 +1,5 @@
 import React from "react";
-import { ProductsDataBackUp } from "../../../ProductsDataBackUp";
+import { ProductsCategory } from "../../../ProductsCategory";
 
 interface CategoryButtonProps {
     categories: string[];
@@ -16,13 +16,12 @@ const CategoryButton = ({ categories, setCategories}: CategoryButtonProps) => {
           else{
             categoriesList = [...categoriesList, category];
           }
-          console.log(categoriesList);
           setCategories(categoriesList);
     }
 
 return(
-    <div>
-    {[...new Set(ProductsDataBackUp.map(({ category }) => category))].map((category) => (
+    <div className="buttonCategoriesPadding">
+    {ProductsCategory.map((category) => (
     <p className="buttonPadding" key={category}>
     <input
     type="checkbox"
