@@ -74,7 +74,7 @@ const CartList = () => {
             {items.map((item: Item) => (
                 <span className="itemBox" key={item.id}>
                     <span className="leftSideCartContainer">
-                        <p className="nameDescriptionFlex"><div className="imgPadding"><Link to={`/ProductPage/${item.id}`}><img className="img" alt = {`product${item.id}`} src = {item.image}></img></Link></div><div className="nameAndDesPadding"><p className="nameAndDes">{item.name} <p className="itemDes">{change(item.description)}...</p></p></div></p>
+                        <div className="nameDescriptionFlex"><div className="imgPadding"><Link to={`/ProductPage/${item.id}`}><img className="img" alt = {`product${item.id}`} src = {item.image}></img></Link></div><div className="nameAndDesPadding"><div className="nameAndDes">{item.name} <div className="itemDes">{change(item.description)}...</div></div></div></div>
                     </span>
                         <span className="rightSideCartContainer">{item.priceTotalOfItem}₪ {item.amount}
                         <amountContext.Provider value={[amount, setAmount]}>
@@ -114,7 +114,7 @@ const CartList = () => {
             <span>Total Price: {priceOfList}₪</span>   
             <button className="checkOutButton" onClick={checkOut}>Check Out</button>
         </div>
-        {popUp && (// check how to do it differently if condition
+        {popUp && (
         <PopUp items={items} popUp={popUp} setPopUp={setPopUp}/>
         )}
         </>
