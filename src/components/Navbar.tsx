@@ -1,8 +1,17 @@
 import React ,{ useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
+import '../styles/Navbar.scss';
 
-const Navbar = (amountList: any) => {
+interface Counter {
+    number: number;
+}
+
+interface NavbarProps {
+    amountList: Counter;
+}
+  
+const Navbar = ({amountList}: NavbarProps) => {
     const [amount, setAmount] = useState<number>(0);
 
     useEffect(() => {

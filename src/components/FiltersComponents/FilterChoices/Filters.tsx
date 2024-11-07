@@ -7,30 +7,37 @@ import DateOld from "./DateOld";
 import DateNew from "./DateNew";
 import InputMax from "./InputMax";
 import InputMin from "./InputMin";
+import 'C:/code/trainning/reactEcommerce/ecommerce-app/src/styles/Filters/Filters.scss'
 
-enum SortType{
-  PriceHigh = "PriceHigh",
-  PriceLow = "PriceLow",
-  DateNew = "DateNew",
-  DateOld = "DateOld"
+
+interface ProductListProps {
+  category: string;
+  name: string;
+  date: string;
+  price: number;
+  description: string;
+  image: string;
+  id: number;
 }
 
 interface FiltersProps {
-    setSortState: React.Dispatch<React.SetStateAction<string | undefined>>;
+    setProductList: React.Dispatch<React.SetStateAction<ProductListProps[]>>;
+    productList: ProductListProps[];
     setMaxPrice: React.Dispatch<React.SetStateAction<number | undefined>>;
     setMinPrice: React.Dispatch<React.SetStateAction<number | undefined>>;
     setSearch: React.Dispatch<React.SetStateAction<string | undefined>>;
-    setCategoryList: React.Dispatch<React.SetStateAction<string[]>>;
-    categoryList: string[];
+    categories: string[];
+    setCategories: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const Filters = ({
-    setSortState,
+    setProductList,
+    productList,
     setMaxPrice, 
-    setMinPrice, 
+    setMinPrice,
     setSearch, 
-    setCategoryList, 
-    categoryList
+    categories,
+    setCategories
 }: FiltersProps) => {
 
     return (
@@ -39,17 +46,17 @@ const Filters = ({
       <h3 className="sortBy">Sort by:</h3>
         <div className="priceSort">
         <p>Price Sort:</p>
-        <PriceLow setSortState={setSortState} SortType={SortType.PriceLow}/>
-        <PriceHigh setSortState={setSortState} SortType={SortType.PriceHigh}/>
+        <PriceLow productList={productList} setProductList ={setProductList}/>
+        <PriceHigh productList={productList} setProductList ={setProductList}/>
         <InputMax setMaxPrice={setMaxPrice}/>
         <InputMin setMinPrice={setMinPrice} />
       </div>
       <div className="dateSort">
         <p>Date Sort:</p>
-        < DateNew setSortState={setSortState} SortType={SortType.DateNew}/>
-        <DateOld setSortState={setSortState} SortType={SortType.DateOld}/>
+        < DateNew productList={productList} setProductList ={setProductList}/>
+        <DateOld productList={productList} setProductList ={setProductList} />
       </div>
-        <Categories setCategoryList={setCategoryList} categoryList={categoryList}/>
+        <Categories categories={categories} setCategories={setCategories}/>
         </div>
     )
 }

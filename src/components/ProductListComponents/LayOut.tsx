@@ -1,4 +1,5 @@
 import React from "react";
+import 'C:/code/trainning/reactEcommerce/ecommerce-app/src/styles/ProductList/LayOut.scss'
 
 interface layoutProps {
   setLayout: React.Dispatch<React.SetStateAction<boolean>>;
